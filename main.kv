@@ -28,7 +28,9 @@ MDScreenManager:
 <MainPage>:
     name: 'main'
     MDBoxLayout:
+        orientation: 'vertical'
         MDLabel:
-            text: "Witaj na stronie głównej!"
+            id: group_label
+            text: "Twoja grupa to: "
             halign: "center"
             pos_hint: {"center_x": .5, "center_y": .5}

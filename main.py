@@ -1,6 +1,7 @@
+import json
+import os
 from kivymd.app import MDApp
 from kivy.lang import Builder
-from database import *
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.dialog import MDDialog
@@ -14,7 +15,7 @@ class FirstPage(MDScreen):
             if not self.dialog:
                 self.dialog = MDDialog(
                     title='Alert',
-                    text='Please enter a group!',
+                    text='Wpisz grupe!',
                     buttons=[
                         MDRoundFlatButton(
                             text="OK",
@@ -24,18 +25,36 @@ class FirstPage(MDScreen):
                 )
             self.dialog.open()
         else:
+            self.save_group()
             self.manager.current = 'main'
 
     def close_dialog(self, instance):
         self.dialog.dismiss()
         self.dialog = None  # Reset the dialog instance
 
+    def save_group(self):
+        user_data = {
+            "user_group": self.ids.group_input.text
+        }
+        with open("local_user_data.json", "w") as outfile:
+            json.dump(user_data, outfile)
+
 class MainPage(MDScreen):
-    pass
+    def on_enter(self, *args):
+        with open("local_user_data.json", "r") as infile:
+            user_data = json.load(infile)
+            self.ids.group_label.text = f"Twoja grupa to: {user_data['user_group']}"
 
 class MyApp(MDApp):
     def build(self):
         return Builder.load_file("main.kv")
+    
+    def on_start(self):
+        if os.path.exists("local_user_data.json"):
+            with open("local_user_data.json", "r") as infile:
+                user_data = json.load(infile)
+                if "user_group" in user_data:
+                    self.root.current = 'main'
 
 if __name__=="__main__":
     MyApp().run()
