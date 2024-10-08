@@ -1,3 +1,29 @@
 MDScreenManager:
     FirstPage:
     MainPage:
+
+<FirstPage>:
+    name: 'first'
+    MDFloatLayout:
+        orientation: 'vertical'
+        MDTextField:
+            mode: "rectangle"
+            size_hint_x: None
+            width: "240dp"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            hint_text: "Podaj grupę dziekańską"
+        MDRoundFlatButton:
+            text: "Submit"
+            size_hint_x: None
+            width: "240dp"
+            pos_hint: {"center_x": .5, "center_y": .4}
+            on_release:
+                app.root.current = 'main'  # Zmiana ekranu na MainPage
+
+<MainPage>:
+    name: 'main'
+    MDBoxLayout:
+        MDLabel:
+            text: "Witaj na stronie głównej!"
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y": .5}
