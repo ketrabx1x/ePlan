@@ -44,7 +44,10 @@ class MainPage(MDScreen):
     def on_enter(self, *args):
         with open("local_user_data.json", "r") as infile:
             user_data = json.load(infile)
-            self.ids.group_label.text = f"Twoja grupa to: {user_data['user_group']}, Poziom angielskiego: {user_data['ang_level']}"
+            self.ids.group_app_bar.title = f"Grupa: {user_data['user_group']}, Ang: {user_data['ang_level']}"
+
+    def go_to_first_page(self):
+        self.manager.current = 'first'
 
 class MyApp(MDApp):
     def build(self):

@@ -4,44 +4,51 @@ MDScreenManager:
 
 <FirstPage>:
     name: 'first'
-    MDFloatLayout:
+    MDBoxLayout:
         orientation: 'vertical'
-        MDLabel:
-            text: "Podaj grupę dziekańską"
-            halign: "center"
-            pos_hint: {"center_x": .5, "center_y": .8}
-        MDTextField:
-            id: group_input
-            mode: "rectangle"
-            size_hint_x: None
-            width: "240dp"
-            pos_hint: {"center_x": .5, "center_y": .75}
-            hint_text: "Np. 1A"
-        MDLabel:
-            text: "Podaj grupę jezykową"
-            halign: "center"
-            pos_hint: {"center_x": .5, "center_y": .6}
-        MDTextField:
-            id: ang_input
-            mode: "rectangle"
-            size_hint_x: None
-            width: "240dp"
-            pos_hint: {"center_x": .5, "center_y": .55}
-            hint_text: "Np. B2"
-        MDRoundFlatButton:
-            text: "Submit"
-            size_hint_x: None
-            width: "240dp"
-            pos_hint: {"center_x": .5, "center_y": .4}
-            on_release:
-                root.check_and_proceed()  # Zmiana ekranu na MainPage
+        MDTopAppBar:
+            title: "ePlan PG ETI"
+            anchor_title: "left"
+        MDFloatLayout:
+            orientation: 'vertical'
+            MDLabel:
+                text: "Podaj grupę dziekańską"
+                halign: "center"
+                pos_hint: {"center_x": .5, "center_y": .8}
+            MDTextField:
+                id: group_input
+                mode: "rectangle"
+                size_hint_x: None
+                width: "240dp"
+                pos_hint: {"center_x": .5, "center_y": .75}
+                hint_text: "Np. 1A"
+            MDLabel:
+                text: "Podaj grupę jezykową"
+                halign: "center"
+                pos_hint: {"center_x": .5, "center_y": .6}
+            MDTextField:
+                id: ang_input
+                mode: "rectangle"
+                size_hint_x: None
+                width: "240dp"
+                pos_hint: {"center_x": .5, "center_y": .55}
+                hint_text: "Np. B2"
+            MDRoundFlatButton:
+                text: "Submit"
+                size_hint_x: None
+                width: "240dp"
+                pos_hint: {"center_x": .5, "center_y": .4}
+                on_release:
+                    root.check_and_proceed()  # Zmiana ekranu na MainPage
 
 <MainPage>:
     name: 'main'
     MDBoxLayout:
         orientation: 'vertical'
-        MDLabel:
-            id: group_label
-            text: "Twoja grupa to: "
-            halign: "center"
-            pos_hint: {"center_x": .5, "center_y": .5}
+        MDTopAppBar:
+            id: group_app_bar
+            title: "ePlan PG ETI"
+            anchor_title: "left"
+            right_action_items: [["pencil", lambda x: app.root.get_screen('main').go_to_first_page()]]
+        MDBoxLayout:
+        MDBoxLayout:
