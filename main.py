@@ -11,11 +11,11 @@ class FirstPage(MDScreen):
     dialog = None
 
     def check_and_proceed(self):
-        if not self.ids.group_input.text:
+        if not self.ids.group_input.text or not self.ids.ang_input.text:
             if not self.dialog:
                 self.dialog = MDDialog(
                     title='Alert',
-                    text='Wpisz grupe!',
+                    text='Wpisz grupe i poziom angielskiego!',
                     buttons=[
                         MDRoundFlatButton(
                             text="OK",
@@ -25,16 +25,17 @@ class FirstPage(MDScreen):
                 )
             self.dialog.open()
         else:
-            self.save_group()
+            self.save_data()
             self.manager.current = 'main'
 
     def close_dialog(self, instance):
         self.dialog.dismiss()
         self.dialog = None  # Reset the dialog instance
 
-    def save_group(self):
+    def save_data(self):
         user_data = {
-            "user_group": self.ids.group_input.text
+            "user_group": self.ids.group_input.text,
+            "ang_level": self.ids.ang_input.text
         }
         with open("local_user_data.json", "w") as outfile:
             json.dump(user_data, outfile)
@@ -43,7 +44,7 @@ class MainPage(MDScreen):
     def on_enter(self, *args):
         with open("local_user_data.json", "r") as infile:
             user_data = json.load(infile)
-            self.ids.group_label.text = f"Twoja grupa to: {user_data['user_group']}"
+            self.ids.group_label.text = f"Twoja grupa to: {user_data['user_group']}, Poziom angielskiego: {user_data['ang_level']}"
 
 class MyApp(MDApp):
     def build(self):
@@ -53,7 +54,7 @@ class MyApp(MDApp):
         if os.path.exists("local_user_data.json"):
             with open("local_user_data.json", "r") as infile:
                 user_data = json.load(infile)
-                if "user_group" in user_data:
+                if "user_group" in user_data and "ang_level" in user_data:
                     self.root.current = 'main'
 
 if __name__=="__main__":

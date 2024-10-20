@@ -9,14 +9,25 @@ MDScreenManager:
         MDLabel:
             text: "Podaj grupę dziekańską"
             halign: "center"
-            pos_hint: {"center_x": .5, "center_y": .6}
+            pos_hint: {"center_x": .5, "center_y": .8}
         MDTextField:
             id: group_input
             mode: "rectangle"
             size_hint_x: None
             width: "240dp"
-            pos_hint: {"center_x": .5, "center_y": .5}
+            pos_hint: {"center_x": .5, "center_y": .75}
             hint_text: "Np. 1A"
+        MDLabel:
+            text: "Podaj grupę jezykową"
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y": .6}
+        MDTextField:
+            id: ang_input
+            mode: "rectangle"
+            size_hint_x: None
+            width: "240dp"
+            pos_hint: {"center_x": .5, "center_y": .55}
+            hint_text: "Np. B2"
         MDRoundFlatButton:
             text: "Submit"
             size_hint_x: None
