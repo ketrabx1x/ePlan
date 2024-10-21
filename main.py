@@ -16,6 +16,7 @@ class CalendarWidget(MDBoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.orientation = 'vertical'
+        self.adaptive_height=True
         self.current_date = datetime.today()
         self.header = MDBoxLayout(adaptive_height=True)
         self.prev_button = MDFillRoundFlatButton(text='<', on_press=self.prev_month)
