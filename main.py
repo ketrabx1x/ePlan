@@ -114,6 +114,8 @@ class MainPage(MDScreen):
 
 class MyApp(MDApp):
     def build(self):
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Teal"
         return Builder.load_file("main.kv")
     
     def on_start(self):
