@@ -12,5 +12,5 @@ def init_supabase():
 # Funkcja do pobierania danych z tabeli "Test"
 def get_data_from_zjazdy():
     supabase = init_supabase()
-    data = supabase.table("Test").select("*").execute()
+    data = supabase.table("Zjazdy").select("*").execute()
     return data
