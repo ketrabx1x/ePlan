@@ -10,14 +10,15 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.label import MDLabel
 from datetime import datetime, timedelta
+from kivy.utils import get_color_from_hex
 
 # Kalendarz do załadowania w MainPage
 class CalendarWidget(MDBoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.orientation = 'vertical'
-        self.adaptive_height=True
-        self.current_date = datetime.today()
+        self.adaptive_height = True
+        self.current_date = datetime.today()  # Dzisiaj
         self.header = MDBoxLayout(adaptive_height=True)
         self.prev_button = MDFillRoundFlatButton(text='<', on_press=self.prev_month)
         self.next_button = MDFillRoundFlatButton(text='>', on_press=self.next_month)
@@ -44,11 +45,20 @@ class CalendarWidget(MDBoxLayout):
         last_day_of_month = next_month - timedelta(days=next_month.day)
         num_days = last_day_of_month.day
 
+        today = datetime.today()  # Aktualna data
+
+        # Puste dni przed pierwszym dniem miesiąca
         for _ in range(start_day):
             self.calendar_grid.add_widget(MDLabel())
 
         for day in range(1, num_days + 1):
-            self.calendar_grid.add_widget(MDFillRoundFlatButton(text=str(day), on_press=self.on_day_select))
+            btn = MDFillRoundFlatButton(text=str(day), on_press=self.on_day_select)
+            
+            # Sprawdzenie, czy ten dzień to dzisiaj
+            if (date.year == today.year and date.month == today.month and day == today.day):
+                btn.md_bg_color = get_color_from_hex('#FFA500')  # Pomarańczowy kolor
+            
+            self.calendar_grid.add_widget(btn)
 
         self.month_label.text = date.strftime('%B %Y')
 
